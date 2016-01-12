@@ -1,8 +1,8 @@
-* Dependency injection example with system
+* Multiple endpoints example with system
 ** Definition
-This is an example for the [[https://github.com/danielsz/system][system]] library. It shows how to leverage the dependency injection features of [[https://github.com/stuartsierra/component][componen]]t, the libary on top of which system itself is built. 
+This is an example for the [[https://github.com/danielsz/system][system]] library. It shows how to leverage the Duct components to build an application with multiple endpoints. 
 ** Mission statement
-Names are important. Which names? Those behind our favorite movies, that's who! So let’s save them via a web service.
+Names are important. Which names? Those behind our favorite movies and our favorite books, that's who! So let’s save them via a web service.
 ** Installation
 
 In our development environment, we use a in-memory database and a web server listening on port 3025. 
@@ -101,3 +101,4 @@ curl http://localhost:3025/directors
 #+RESULTS:
 : ("Michelangelo Antonioni" "Jean-Luc Godard")
 
+Now repeat for the authors endpoint.
