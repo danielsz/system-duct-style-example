@@ -6,6 +6,7 @@
     [h2 :refer [new-h2-database DEFAULT-MEM-SPEC DEFAULT-DB-SPEC]]
     [http-kit :refer [new-web-server]]
     [endpoint :refer [new-endpoint]]
+    [middleware :refer [new-middleware]]
     [handler :refer [new-handler]])
    [example.handler :refer [authors-routes directors-routes]]
    [example.db :refer [create-tables!]]
@@ -22,14 +23,15 @@
              [:db])
    :directors (component/using
                (new-endpoint directors-routes)
-               [:db]) 
+               [:db])
+   :middleware (new-middleware {:middleware [[wrap-not-found :not-found]
+                                             [wrap-restful-format]
+                                             [wrap-defaults :defaults]]
+                                :defaults api-defaults
+                                :not-found  "<h2>The requested page does not exist.</h2>"} )
    :handler (component/using
-             (new-handler {:middleware [[wrap-not-found :not-found]
-                                        [wrap-restful-format]
-                                        [wrap-defaults :defaults]]
-                           :defaults api-defaults
-                           :not-found  "<h2>The requested page does not exist.</h2>"})
-             [:authors :directors])
+             (new-handler)
+             [:authors :directors :middleware])
    :http (component/using
          (new-web-server (Integer. (env :http-port)))
          [:handler])))
@@ -43,13 +45,14 @@
    :directors (component/using
                (new-endpoint directors-routes)
                [:db]) 
+   :middleware (new-middleware {:middleware [[wrap-not-found :not-found]
+                                             [wrap-restful-format]
+                                             [wrap-defaults :defaults]]
+                                :defaults api-defaults
+                                :not-found  "<h2>The requested page does not exist.</h2>"} )
    :handler (component/using
-             (new-handler {:middleware [[wrap-not-found :not-found]
-                                        [wrap-restful-format]
-                                        [wrap-defaults :defaults]]
-                           :defaults api-defaults
-                           :not-found  "<h2>The requested page does not exist.</h2>"})
-             [:authors :directors])
+             (new-handler)
+             [:authors :directors :middleware])
    :http (component/using
          (new-web-server (Integer. (env :http-port)))
          [:handler])))
