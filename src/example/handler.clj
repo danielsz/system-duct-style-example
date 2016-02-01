@@ -14,15 +14,15 @@
                             response
                             (content-type "application/edn")
                             (charset "UTF-8"))))
-   (GET "/directors" req (-> (pr-str (map :name (directors db)))
+   (GET "/directors" req (-> (pr-str (map :name (directors {} {:connection db})))
                              response
                              (content-type "application/edn")
                              (charset "UTF-8")))
    (ANY "/director" req (fn [{params :params :as req}]
                           (->
                            (case (:request-method req)
-                             :put (save-director<! db (:director params))
-                             :delete (delete-director! db (:director params)))
+                             :put (save-director<! {:name (:director params)} {:connection db})
+                             :delete (delete-director! {:name (:director params)} {:connection db}))
                            response)))))
 
 (defn authors-routes [{{db :db-spec} :db}]
@@ -33,13 +33,13 @@
                            response
                            (content-type "application/edn")
                            (charset "UTF-8"))))
-   (GET "/authors" req (-> (pr-str (map :name (authors db)))
+   (GET "/authors" req (-> (pr-str (map :name (authors {} {:connection db})))
                            response
                            (content-type "application/edn")
                            (charset "UTF-8")))
    (ANY "/author" req (fn [{params :params :as req}]
                         (->
                          (case (:request-method req)
-                           :put (save-author<! db (:author params))
-                           :delete (delete-author! db (:author params)))
+                           :put (save-author<! {:name (:author params)} {:connection db})
+                           :delete (delete-author! {:name (:author params)} {:connection db}))
                          response)))))

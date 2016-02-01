@@ -4,7 +4,7 @@
    [com.stuartsierra.component :as component]
    (system.components 
     [h2 :refer [new-h2-database DEFAULT-MEM-SPEC DEFAULT-DB-SPEC]]
-    [http-kit :refer [new-web-server]]
+    [jetty :refer [new-web-server]]
     [endpoint :refer [new-endpoint]]
     [middleware :refer [new-middleware]]
     [handler :refer [new-handler]])
@@ -17,7 +17,7 @@
 
 (defn dev-system []
   (component/system-map
-   :db (new-h2-database DEFAULT-MEM-SPEC create-tables!)
+   :db (new-h2-database DEFAULT-MEM-SPEC #(create-tables! {} {:connection %}))
    :authors (component/using
              (new-endpoint authors-routes)
              [:db])
@@ -38,7 +38,7 @@
 
 (defn prod-system []
   (component/system-map
-   :db (new-h2-database DEFAULT-DB-SPEC)
+   :db (new-h2-database DEFAULT-DB-SPEC #(create-tables! {} {:connection %}))
    :authors (component/using
              (new-endpoint authors-routes)
              [:db])
