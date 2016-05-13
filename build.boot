@@ -6,8 +6,8 @@
                  [org.clojure/java.jdbc "0.4.2"]
                  [com.h2database/h2 "1.4.191"]
                  [yesql "0.5.2"]
-                 [environ"1.0.2"]
-                 [boot-environ "1.0.2"]
+                 [environ"1.0.3"]
+                 [boot-environ "1.0.3"]
                  [org.danielsz/system "0.3.0-SNAPSHOT"]
                  [ring/ring-core "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
@@ -20,7 +20,6 @@
 
 (require
  '[adzerk.boot-reload    :refer [reload]]
- '[reloaded.repl :refer [init start stop go reset]]
  '[example.systems :refer [dev-system prod-system]]
  '[environ.boot :refer [environ]] 
  '[system.boot :refer [system run]])

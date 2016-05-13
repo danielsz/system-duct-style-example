@@ -8,7 +8,7 @@
 
 (defn directors-routes [{{db :db-spec} :db}]
   (routes
-   (GET "/movies" [] "Welcome. Feed a movie title, and get the director back. Info https://github.com/danielsz/system-advanced-example")
+   (GET "/movies" [] "Welcome. Feed a movie title, and get the director back.")
    (POST "/movie" req (fn [{params :params :as req}]
                         (-> (pr-str {:director (get-director-of-movie (:movie params))})
                             response
@@ -27,7 +27,7 @@
 
 (defn authors-routes [{{db :db-spec} :db}]
   (routes
-   (GET "/books" [] "Welcome. Feed a book title, and get the author back. Info https://github.com/danielsz/system-advanced-example")
+   (GET "/books" [] "Welcome. Feed a book title, and get the author back.")
    (POST "/book" req (fn [{params :params :as req}]
                        (-> (pr-str {:director (get-director-of-movie (:movie params))})
                            response
