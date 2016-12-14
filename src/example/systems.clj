@@ -24,11 +24,9 @@
    :directors (component/using
                (new-endpoint directors-routes)
                [:db])
-   :middleware (new-middleware {:middleware [[wrap-not-found :not-found]
-                                             [wrap-restful-format]
-                                             [wrap-defaults :defaults]]
-                                :defaults api-defaults
-                                :not-found  "<h2>The requested page does not exist.</h2>"} )
+   :middleware (new-middleware {:middleware [[wrap-not-found "<h2>The requested page does not exist.</h2>"]
+                                             wrap-restful-format
+                                             [wrap-defaults api-defaults]]})
    :handler (component/using
              (new-handler)
              [:authors :directors :middleware])
@@ -45,11 +43,9 @@
    :directors (component/using
                (new-endpoint directors-routes)
                [:db]) 
-   :middleware (new-middleware {:middleware [[wrap-not-found :not-found]
-                                             [wrap-restful-format]
-                                             [wrap-defaults :defaults]]
-                                :defaults api-defaults
-                                :not-found  "<h2>The requested page does not exist.</h2>"} )
+   :middleware (new-middleware {:middleware [[wrap-not-found "<h2>The requested page does not exist.</h2>"]
+                                             wrap-restful-format
+                                             [wrap-defaults api-defaults]]} )
    :handler (component/using
              (new-handler)
              [:authors :directors :middleware])
